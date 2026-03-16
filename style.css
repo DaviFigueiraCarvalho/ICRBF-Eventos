@@ -19,22 +19,31 @@ body {
 
 .container {
     background-color: var(--card);
-    padding: 2.0rem;
+    /* Diminuindo o padding lateral do card para 1rem libera mais espaço para os inputs */
+    padding: 3rem 3rem; 
     border-radius: 1.5rem;
-    width: 90%;
-    max-width: 440px;
+    width: 95%;
+    max-width: 550px; /* Largura total generosa */
     box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+/* Garante que o formulário ocupe 100% da largura útil do container */
+#inscricaoForm {
+    width: 100%;
+}
 .header { text-align: center; margin-bottom: 2rem; }
 .logo-img {
-    width: auto;          /* Largura da foto */
-    height: 300px;         /* Altura da foto */
+    width: 100%;           /* Ocupa a largura total do container */
+    height: auto;          /* Mantém a proporção baseada na largura */
+    max-height: 300px;     /* Limite de altura */
     object-fit: cover;
-    border-radius: 50px;     /* Garante que a foto não fique esticada */
-    border: 3px solid var(--primary); /* Adiciona uma borda verde no tom da ICR */
-    margin-bottom: 1rem;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    border-radius: 1rem;   /* Arredondamento suave acompanhando o container */
+    border: 2px solid var(--primary);
+    margin-bottom: 1.5rem;
 }
 
 .header {
@@ -50,14 +59,45 @@ body {
 .form-group label { font-size: 0.85rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 5px; color: rgba(255,255,255,0.7); }
 .form-group label .material-icons { font-size: 1.1rem; }
 
+/* Atualize a regra dos inputs e selects */
 input, select {
+    width: 100%;
     background-color: #171717;
     border: 1px solid var(--border);
     border-radius: 0.6rem;
-    padding: 0.8rem;
+    
+    /* Aumentando o preenchimento: 1.1rem em cima/baixo e 1.5rem nas laterais */
+    padding: 1.1rem 1.5rem; 
+    
     color: white;
     font-family: inherit;
+    font-size: 1rem;
     transition: border-color 0.3s;
+    box-sizing: border-box;
+    margin-top: 0.5rem;
+}
+
+/* Ajuste específico para o Select (setinha) não ficar apertado */
+select {
+    appearance: none; /* Remove estilo padrão se quiser customizar mais */
+    cursor: pointer;
+}
+/* Ajuste no grupo do formulário para garantir alinhamento */
+.form-group {
+    margin-bottom: 2rem;   /* Aumentado o espaço entre um campo e outro */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-group label {
+    font-size: 0.95rem;    /* Label levemente maior */
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;              /* Mais espaço entre o ícone e o texto */
+    color: rgba(255,255,255,0.8);
 }
 
 input:focus, select:focus { outline: none; border-color: var(--primary); }

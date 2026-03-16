@@ -62,7 +62,7 @@ try {
     echo json_encode([
         "status" => "success",
         "message" => "Inscrição realizada",
-        "whatsapp_link" => "https://chat.whatsapp.com/LNK_DO_SEU_GRUPO"
+        "whatsapp_link" => "https://chat.whatsapp.com/JN7i7sPMNPMJTn2z0GgnnU"
     ]);
 
 } catch (PDOException $e) {
