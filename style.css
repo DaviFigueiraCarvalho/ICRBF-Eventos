@@ -1,0 +1,148 @@
+:root {
+    --primary: #017158; /* Verde ICR */
+    --bg: #1c1c1c;      /* Cinza escuro fundo */
+    --card: #2b2b2b;    /* Cinza claro cards */
+    --text: #ffffff;
+    --border: rgba(255, 255, 255, 0.1);
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: var(--card);
+    padding: 2.0rem;
+    border-radius: 1.5rem;
+    width: 90%;
+    max-width: 440px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+}
+
+.header { text-align: center; margin-bottom: 2rem; }
+.logo-img {
+    width: auto;          /* Largura da foto */
+    height: 300px;         /* Altura da foto */
+    object-fit: cover;
+    border-radius: 50px;     /* Garante que a foto não fique esticada */
+    border: 3px solid var(--primary); /* Adiciona uma borda verde no tom da ICR */
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.subtitle { color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+
+.form-group { margin-bottom: 1.5rem; display: flex; flex-direction: column; width: 100%; }
+.form-group label { font-size: 0.85rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 5px; color: rgba(255,255,255,0.7); }
+.form-group label .material-icons { font-size: 1.1rem; }
+
+input, select {
+    background-color: #171717;
+    border: 1px solid var(--border);
+    border-radius: 0.6rem;
+    padding: 0.8rem;
+    color: white;
+    font-family: inherit;
+    transition: border-color 0.3s;
+}
+
+input:focus, select:focus { outline: none; border-color: var(--primary); }
+
+.btn-submit {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 0.6rem;
+    width: 100%;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: filter 0.3s;
+}
+
+.btn-submit:hover { filter: brightness(1.2); }
+
+.success-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1rem 0;
+    color: #ffffff;
+}
+
+.pix-container {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px dashed var(--primary);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    width: 100%;
+}
+
+.pix-logo {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 1rem;
+}
+
+.pix-details p {
+    margin: 0.5rem 0;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.pix-details strong {
+    color: #4ade80; /* Verde claro para a chave */
+}
+
+.whatsapp-instruction {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.check-icon {
+    font-size: 4rem;
+    color: #4ade80;
+    margin-bottom: 0.5rem;
+}
+
+/* Garante que o container se ajuste ao conteúdo novo */
+.container {
+    height: auto;
+    min-height: fit-content;
+}
+
+.btn-whatsapp {
+    background-color: #25d366;
+    color: white;
+    text-decoration: none;
+    padding: 1rem;
+    border-radius: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 1.5rem;
+    font-weight: bold;
+}
+
+.hidden { display: none; }
