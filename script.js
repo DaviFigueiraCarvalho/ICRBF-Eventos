@@ -18,11 +18,10 @@ form.onsubmit = async (e) => {
     btn.innerHTML = "Processando...";
 
     const payload = {
-        homem: document.getElementById('homem').value,
-        mulher: document.getElementById('mulher').value,
-        telefone: document.getElementById('telefone').value, // IMPORTANTE
+        nome: document.getElementById('nome').value,
         igreja: igrejaSelect.value,
-        celula: document.getElementById('celula') ? document.getElementById('celula').value : ""
+        celula: document.getElementById('celula') ? document.getElementById('celula').value : "",
+        camisa: document.getElementById('camisa').value
     };
 
     try {
@@ -45,7 +44,6 @@ form.onsubmit = async (e) => {
             form.classList.add('hidden');
             document.querySelector('.header').classList.add('hidden');
             successArea.classList.remove('hidden');
-            document.getElementById('whatsappBtn').href = result.whatsapp_link;
         } else {
             alert("Erro: " + result.message);
             btn.disabled = false;

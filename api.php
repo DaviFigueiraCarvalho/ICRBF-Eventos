@@ -13,7 +13,7 @@ $port = 3306;
 $dbname = "igrej300_eventos_ICRBF";
 $user = "igrej300_phprooter";
 $pass = "Avivalista26@";
-$table = "conf_casais_2026_04_18";
+$table = "Corrida-5-anos-05-26";
 
 $data = json_decode(file_get_contents("php://input"), true);
 
@@ -22,15 +22,13 @@ if (!$data) {
     exit;
 }
 
-$homem = trim($data['homem'] ?? '');
-$mulher = trim($data['mulher'] ?? '');
+$nome   = trim($data['nome'] ?? '');
 $igreja = trim($data['igreja'] ?? '');
 $celula = trim($data['celula'] ?? '');
-// Limpa o telefone para aceitar apenas números
-$telefone = preg_replace('/\D/', '', $data['telefone'] ?? '');
+$camisa = trim($data['camisa'] ?? '');
 
 // Validação de campos obrigatórios
-if (!$homem || !$mulher || !$igreja || strlen($telefone) < 10) {
+if (!$nome || !$igreja || !$camisa) {
     echo json_encode(["status" => "error", "message" => "Preencha todos os campos corretamente."]);
     exit;
 }
@@ -44,25 +42,23 @@ try {
     $conn = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4", $user, $pass);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $createTable = "CREATE TABLE IF NOT EXISTS $table (
+    $createTable = "CREATE TABLE IF NOT EXISTS `$table` (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        nome_homem VARCHAR(120) NOT NULL,
-        nome_mulher VARCHAR(120) NOT NULL,
-        telefone VARCHAR(15) NOT NULL,
+        nome VARCHAR(120) NOT NULL,
         igreja VARCHAR(120) NOT NULL,
         celula VARCHAR(120),
+        camisa VARCHAR(10) NOT NULL,
         criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )";
     $conn->exec($createTable);
 
-    $sql = "INSERT INTO $table (nome_homem, nome_mulher, telefone, igreja, celula) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO `$table` (nome, igreja, celula, camisa) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->execute([$homem, $mulher, $telefone, $igreja, $celula]);
+    $stmt->execute([$nome, $igreja, $celula, $camisa]);
 
     echo json_encode([
         "status" => "success",
-        "message" => "Inscrição realizada",
-        "whatsapp_link" => "https://chat.whatsapp.com/JN7i7sPMNPMJTn2z0GgnnU"
+        "message" => "Inscrição realizada"
     ]);
 
 } catch (PDOException $e) {
