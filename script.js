@@ -2,6 +2,10 @@ const igrejaSelect = document.getElementById('igreja');
 const celulaWrapper = document.getElementById('celulaWrapper');
 const form = document.getElementById('inscricaoForm');
 const successArea = document.getElementById('successArea');
+const container = document.querySelector('.container');
+const API_URL = window.location.protocol === 'file:'
+    ? 'http://localhost/Icr-Evento-de-Casais-18-4-26/api.php'
+    : 'api.php';
 
 igrejaSelect.addEventListener('change', (e) => {
     if (e.target.value === "Baixada Fluminense - (Vila Rosali)") {
@@ -25,7 +29,7 @@ form.onsubmit = async (e) => {
     };
 
     try {
-        const response = await fetch('api.php', {
+        const response = await fetch(API_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -41,8 +45,7 @@ form.onsubmit = async (e) => {
         }
 
         if (result.status === "success") {
-            form.classList.add('hidden');
-            document.querySelector('.header').classList.add('hidden');
+            container.classList.add('hidden');
             successArea.classList.remove('hidden');
         } else {
             alert("Erro: " + result.message);
@@ -51,7 +54,11 @@ form.onsubmit = async (e) => {
         }
     } catch (error) {
         console.error(error);
-        alert(error.message);
+        if (error.message === 'Failed to fetch') {
+            alert('Falha de conexao com o servidor. Abra pelo localhost (http://localhost/...) ou inicie o Apache no XAMPP.');
+        } else {
+            alert(error.message);
+        }
         btn.disabled = false;
         btn.innerHTML = "Confirmar Inscrição";
     }
