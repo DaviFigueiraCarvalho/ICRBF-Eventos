@@ -41,6 +41,8 @@ if ($igreja !== "Baixada Fluminense - (Vila Rosali)") {
 try {
     $conn = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4", $user, $pass);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Força utf8mb4 na sessão MySQL (redundante em versões modernas, mas garante compatibilidade)
+    $conn->exec("SET NAMES 'utf8mb4' COLLATE 'utf8mb4_unicode_ci'");
 
     $createTable = "CREATE TABLE IF NOT EXISTS `$table` (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -49,7 +51,7 @@ try {
         celula VARCHAR(120),
         camisa VARCHAR(10) NOT NULL,
         criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )";
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
     $conn->exec($createTable);
 
     $sql = "INSERT INTO `$table` (nome, igreja, celula, camisa) VALUES (?, ?, ?, ?)";
