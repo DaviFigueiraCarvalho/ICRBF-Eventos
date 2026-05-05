@@ -6,7 +6,7 @@ const form = document.getElementById('inscricaoForm');
 const successArea = document.getElementById('successArea');
 const container = document.querySelector('.container');
 const API_URL = window.location.protocol === 'file:'
-    ? 'http://localhost/Icr-Evento-de-Casais-18-4-26/api.php'
+    ? 'https://www.icravivalista.com.br/api.php'
     : 'api.php';
 
 filhosCheckbox.addEventListener('change', () => {
