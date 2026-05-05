@@ -1,5 +1,7 @@
-const igrejaSelect = document.getElementById('igreja');
-const celulaWrapper = document.getElementById('celulaWrapper');
+const celulaSelect = document.getElementById('celula');
+const filhosCheckbox = document.getElementById('filhos');
+const qntsWrapper = document.getElementById('qntsWrapper');
+const qntsInput = document.getElementById('qnts');
 const form = document.getElementById('inscricaoForm');
 const successArea = document.getElementById('successArea');
 const container = document.querySelector('.container');
@@ -7,11 +9,17 @@ const API_URL = window.location.protocol === 'file:'
     ? 'http://localhost/Icr-Evento-de-Casais-18-4-26/api.php'
     : 'api.php';
 
-igrejaSelect.addEventListener('change', (e) => {
-    if (e.target.value === "Baixada Fluminense - (Vila Rosali)") {
-        celulaWrapper.classList.remove('hidden');
+filhosCheckbox.addEventListener('change', () => {
+    if (filhosCheckbox.checked) {
+        qntsWrapper.classList.remove('hidden');
+        qntsInput.required = true;
+        qntsInput.disabled = false;
+        qntsInput.focus();
     } else {
-        celulaWrapper.classList.add('hidden');
+        qntsWrapper.classList.add('hidden');
+        qntsInput.required = false;
+        qntsInput.disabled = true;
+        qntsInput.value = '';
     }
 });
 
@@ -23,9 +31,9 @@ form.onsubmit = async (e) => {
 
     const payload = {
         nome: document.getElementById('nome').value,
-        igreja: igrejaSelect.value,
-        celula: document.getElementById('celula') ? document.getElementById('celula').value : "",
-        camisa: document.getElementById('camisa').value
+        celula: celulaSelect.value,
+        filhos: filhosCheckbox.checked,
+        qnts: filhosCheckbox.checked ? Number(qntsInput.value || 0) : 0
     };
 
     try {
@@ -45,6 +53,7 @@ form.onsubmit = async (e) => {
         }
 
         if (result.status === "success") {
+            document.body.classList.add('success-mode');
             container.classList.add('hidden');
             successArea.classList.remove('hidden');
         } else {

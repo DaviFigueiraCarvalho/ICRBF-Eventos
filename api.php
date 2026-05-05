@@ -13,7 +13,13 @@ $port = 3306;
 $dbname = "igrej300_eventos_ICRBF";
 $user = "igrej300_phprooter";
 $pass = "Avivalista26@";
-$table = "Corrida-5-anos-05-26";
+$table = "Aniversario_2026";
+
+function columnExists(PDO $conn, string $table, string $column): bool {
+    $stmt = $conn->prepare("SHOW COLUMNS FROM `$table` LIKE ?");
+    $stmt->execute([$column]);
+    return (bool) $stmt->fetch(PDO::FETCH_ASSOC);
+}
 
 $data = json_decode(file_get_contents("php://input"), true);
 
@@ -23,19 +29,20 @@ if (!$data) {
 }
 
 $nome   = trim($data['nome'] ?? '');
-$igreja = trim($data['igreja'] ?? '');
 $celula = trim($data['celula'] ?? '');
-$camisa = trim($data['camisa'] ?? '');
+$filhos = !empty($data['filhos']) ? 1 : 0;
+$qnts   = isset($data['qnts']) ? (int) $data['qnts'] : 0;
 
 // Validação de campos obrigatórios
-if (!$nome || !$igreja || !$camisa) {
+if (!$nome || !$celula) {
     echo json_encode(["status" => "error", "message" => "Preencha todos os campos corretamente."]);
     exit;
 }
-
-// Lógica da Célula
-if ($igreja !== "Baixada Fluminense - (Vila Rosali)") {
-    $celula = "Matriz($igreja)";
+if ($filhos === 0) {
+    $qnts = 0;
+} elseif ($qnts < 1) {
+    echo json_encode(["status" => "error", "message" => "Informe a quantidade de dependentes ou convidados."]);
+    exit;
 }
 
 try {
@@ -47,16 +54,24 @@ try {
     $createTable = "CREATE TABLE IF NOT EXISTS `$table` (
         id INT AUTO_INCREMENT PRIMARY KEY,
         nome VARCHAR(120) NOT NULL,
-        igreja VARCHAR(120) NOT NULL,
         celula VARCHAR(120),
-        camisa VARCHAR(10) NOT NULL,
+        filhos TINYINT(1) NOT NULL DEFAULT 0,
+        qnts INT NOT NULL DEFAULT 0,
         criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
     $conn->exec($createTable);
 
-    $sql = "INSERT INTO `$table` (nome, igreja, celula, camisa) VALUES (?, ?, ?, ?)";
+    if (!columnExists($conn, $table, 'filhos')) {
+        $conn->exec("ALTER TABLE `$table` ADD COLUMN filhos TINYINT(1) NOT NULL DEFAULT 0 AFTER celula");
+    }
+
+    if (!columnExists($conn, $table, 'qnts')) {
+        $conn->exec("ALTER TABLE `$table` ADD COLUMN qnts INT NOT NULL DEFAULT 0 AFTER filhos");
+    }
+
+    $sql = "INSERT INTO `$table` (nome, celula, filhos, qnts) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->execute([$nome, $igreja, $celula, $camisa]);
+    $stmt->execute([$nome, $celula, $filhos, $qnts]);
 
     echo json_encode([
         "status" => "success",
