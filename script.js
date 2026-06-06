@@ -1,7 +1,6 @@
+const igrejaSelect = document.getElementById('igreja');
 const celulaSelect = document.getElementById('celula');
-const filhosCheckbox = document.getElementById('filhos');
-const qntsWrapper = document.getElementById('qntsWrapper');
-const qntsInput = document.getElementById('qnts');
+const celulaWrapper = document.getElementById('celulaWrapper');
 const form = document.getElementById('inscricaoForm');
 const successArea = document.getElementById('successArea');
 const container = document.querySelector('.container');
@@ -9,17 +8,14 @@ const API_URL = window.location.protocol === 'file:'
     ? 'https://www.icravivalista.com.br/api.php'
     : 'api.php';
 
-filhosCheckbox.addEventListener('change', () => {
-    if (filhosCheckbox.checked) {
-        qntsWrapper.classList.remove('hidden');
-        qntsInput.required = true;
-        qntsInput.disabled = false;
-        qntsInput.focus();
+igrejaSelect.addEventListener('change', () => {
+    if (igrejaSelect.value === 'Vila Rosali | BF') {
+        celulaWrapper.classList.remove('hidden');
+        celulaSelect.required = true;
     } else {
-        qntsWrapper.classList.add('hidden');
-        qntsInput.required = false;
-        qntsInput.disabled = true;
-        qntsInput.value = '';
+        celulaWrapper.classList.add('hidden');
+        celulaSelect.required = false;
+        celulaSelect.value = '';
     }
 });
 
@@ -31,9 +27,8 @@ form.onsubmit = async (e) => {
 
     const payload = {
         nome: document.getElementById('nome').value,
-        celula: celulaSelect.value,
-        filhos: filhosCheckbox.checked,
-        qnts: filhosCheckbox.checked ? Number(qntsInput.value || 0) : 0
+        igreja: igrejaSelect.value,
+        celula: igrejaSelect.value === 'Vila Rosali | BF' ? celulaSelect.value : ''
     };
 
     try {
