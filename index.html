@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ICR - Congresso Regional</title>
+    <title>EBF 2026 | Passaporte para o Céu</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
@@ -15,57 +15,118 @@
 
 <div class="container">
     <div class="header">
-        <img src="banner.jpeg" alt="Banner do evento" class="logo-img">
-        <h2>Congresso Regional</h2>
-        <p class="subtitle">Preencha os dados para confirmar sua inscrição</p>
+        <img src="banner.jpeg" alt="Banner EBF 2026" class="logo-img">
+        <h2>Passaporte para o Céu</h2>
+        <p class="subtitle">Preencha os dados para emitir o passaporte</p>
     </div>
+
+    <div id="periodo-indisponivel" class="periodo-mensagem hidden">
+        <span class="material-icons">info</span>
+        <p id="mensagem-periodo"></p>
+    </div>
+
     <form id="inscricaoForm">
         <div class="form-group">
-            <label><span class="material-icons">person</span> Nome Completo</label>
-            <input type="text" id="nome" required placeholder="Nome Completo">
+            <label><span class="material-icons">child_care</span> Nome Completo da Criança *</label>
+            <input type="text" id="nome" required placeholder="Nome completo da criança">
         </div>
 
         <div class="form-group">
-            <label><span class="material-icons">church</span> Igreja</label>
-            <select id="igreja" required>
-                <option value="">Selecione sua igreja...</option>
-                <option value="Campo Grande">Campo Grande</option>
-                <option value="Iguaba Grande">Iguaba Grande</option>
-                <option value="São Pedro da Aldeia">São Pedro da Aldeia</option>
-                <option value="Três Rios">Três Rios</option>
-                <option value="Vila Rosali | BF">Vila Rosali | BF</option>
-            </select>
+            <label><span class="material-icons">cake</span> Data de Nascimento *</label>
+            <input type="date" id="dataNascimento" required>
         </div>
 
-        <div class="form-group hidden" id="celulaWrapper">
-            <label><span class="material-icons">groups</span> Célula</label>
-            <select id="celula">
-                <option value="">Selecione sua célula...</option>
-                <option value="Matriz(Baixada Fluminense - Vila Rosali)">Matriz(Baixada Fluminense - Vila Rosali)</option>
-                <option value="300">300</option>
-                <option value="Queimados-Nova Iguaçu">Queimados-Nova Iguaçu</option>
-                <option value="Rio-Mesquita">Rio-Mesquita</option>
-                <option value="Caxias">Caxias</option>
+        <div class="form-group">
+            <label><span class="material-icons">accessibility_new</span> Idade</label>
+            <input type="text" id="idade" readonly placeholder="Calculada automaticamente">
+        </div>
+
+        <div class="form-group">
+            <label><span class="material-icons">people</span> Nome dos Pais ou Responsáveis Legais *</label>
+            <input type="text" id="responsaveis" required placeholder="Nome completo dos responsáveis">
+        </div>
+
+        <div class="form-group">
+            <label><span class="material-icons">phone</span> Telefone de Contato *</label>
+            <input type="tel" id="telefone" required placeholder="(00) 00000-0000" maxlength="15">
+        </div>
+
+        <div class="form-group">
+            <label><span class="material-icons">restaurant</span> Possui restrições alimentares? *</label>
+            <div class="radio-group">
+                <label class="radio-label">
+                    <input type="radio" name="restricao" value="nao" checked>
+                    <span>Não</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="restricao" value="sim">
+                    <span>Sim</span>
+                </label>
+            </div>
+            <div id="restricoesWrapper" class="hidden">
+                <textarea id="restricoes" placeholder="Descreva as restrições alimentares" rows="3"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label><span class="material-icons">medical_services</span> Possui condições de saúde ou necessidades especiais? *</label>
+            <div class="radio-group">
+                <label class="radio-label">
+                    <input type="radio" name="necessidades" value="nao" checked>
+                    <span>Não</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="necessidades" value="sim">
+                    <span>Sim</span>
+                </label>
+            </div>
+            <div id="necessidadesWrapper" class="hidden">
+                <textarea id="necessidades" placeholder="Descreva as condições ou necessidades especiais" rows="3"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label><span class="material-icons">church</span> Igreja que frequenta *</label>
+            <select id="igreja" required>
+                <option value="">Selecione sua igreja...</option>
+                <option value="ICR Vila Rosali">ICR Vila Rosali</option>
+                <option value="ICR Campo Grande">ICR Campo Grande</option>
+                <option value="ICR Iguaba">ICR Iguaba</option>
+                <option value="ICR Três Rios">ICR Três Rios</option>
+                <option value="ICR São Pedro da Aldeia">ICR São Pedro da Aldeia</option>
+                <option value="Outra">Outra</option>
             </select>
+            <div id="outraIgrejaWrapper" class="hidden">
+                <input type="text" id="outraIgreja" placeholder="Qual igreja você frequenta?">
+            </div>
+        </div>
+
+        <div class="form-group checkbox-group">
+            <label class="checkbox-label">
+                <input type="checkbox" id="autorizacaoImagem" required>
+                <span>Autorizo o uso de imagem da criança durante as atividades da EBF 2026. *</span>
+            </label>
         </div>
 
         <div class="form-group info-group">
-            <p><strong>Data:</strong> 28/06</p>
-            <p><strong>Horário:</strong> 10:00h</p>
+            <p><strong>Data:</strong> 25/07/2026</p>
+            <p><strong>Horário:</strong> 17:00</p>
         </div>
 
         <button type="submit" class="btn-submit" id="btnSubmit">
-            <span class="material-icons">done_all</span> Confirmar Inscrição
+            <span class="material-icons">confirmation_number</span> Emitir Passaporte
         </button>
     </form>
 
 </div>
+
 <div id="successArea" class="success-area hidden">
     <span class="material-icons check-icon">check_circle</span>
-    <h1>Inscrição Realizada!</h1>
-
-            
+    <h1>Tudo certo!</h1>
+    <p class="success-message">Seu passaporte para essa aventura já foi emitido.</p>
+    <p class="success-details">Nos vemos no dia 25/07 às 17 horas.</p>
 </div>
+
 <script src="script.js"></script>
 </body>
 </html>

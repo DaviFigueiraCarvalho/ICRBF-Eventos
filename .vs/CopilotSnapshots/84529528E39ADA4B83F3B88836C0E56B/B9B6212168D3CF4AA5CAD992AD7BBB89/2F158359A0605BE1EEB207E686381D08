@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICR - Congresso Regional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <img src="banner.jpeg" alt="Banner do evento" class="logo-img">
+        <h2>Inscrição - Aniversário da Igreja</h2>
+        <p class="subtitle">Preencha os dados para confirmar sua inscrição</p>
+    </div>
+    <form id="inscricaoForm">
+        <div class="form-group">
+            <label><span class="material-icons">person</span> Nome</label>
+            <input type="text" id="nome" required placeholder="Nome">
+        </div>
+
+        <div class="form-group">
+            <label><span class="material-icons">groups</span> Célula</label>
+            <select id="celula" required>
+                <option value="">Selecione sua célula...</option>
+                <option value="Matriz(Baixada Fluminense - Vila Rosali)">Matriz(Baixada Fluminense - Vila Rosali)</option>
+                <option value="300">300</option>
+                <option value="Queimados-Nova Iguaçu">Queimados-Nova Iguaçu</option>
+                <option value="Rio-Mesquita">Rio-Mesquita</option>
+                <option value="Caxias">Caxias</option>
+            </select>
+        </div>
+
+        <div class="form-group checkbox-group">
+            <label class="checkbox-label" for="filhos">
+                <input type="checkbox" id="filhos">
+                <span>Filhos - levará dependentes ou convidados?</span>
+            </label>
+        </div>
+
+        <div id="qntsWrapper" class="form-group hidden">
+            <label for="qnts"><span class="material-icons">looks_one</span> Qnts</label>
+            <input type="number" id="qnts" min="1" step="1" placeholder="Quantidade">
+        </div>
+
+        <button type="submit" class="btn-submit" id="btnSubmit">
+            <span class="material-icons">done_all</span> Confirmar Inscrição
+        </button>
+    </form>
+
+</div>
+<div id="successArea" class="success-area hidden">
+    <span class="material-icons check-icon">check_circle</span>
+    <h1>Inscrição Realizada!</h1>
+
+            
+</div>
+<script src="script.js"></script>
+</body>
+</html>
